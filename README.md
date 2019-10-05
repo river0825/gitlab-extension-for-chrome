@@ -1,68 +1,12 @@
-# Chrome Extension TypeScript Starter
+# Gitlab extension for chrome
 
-[![Build Status](https://travis-ci.org/chibat/chrome-extension-typescript-starter.svg?branch=master)](https://travis-ci.org/chibat/chrome-extension-typescript-starter)
+This project is base on [Chrome Extension TypeScript Starter](https://github.com/chibat/chrome-extension-typescript-starter)
 
-Chrome Extension, TypeScript and Visual Studio Code
+Gitlab Chrome Extension, provide extra feature to export issues.
 
-## Prerequisites
+## Features
 
-* [node + npm](https://nodejs.org/) (Current Version)
-
-## Option
-
-* [Visual Studio Code](https://code.visualstudio.com/)
-
-## Includes the following
-
-* TypeScript
-* Webpack
-* Moment.js
-* jQuery
-* Example Code
-    * Chrome Storage
-    * Options Version 2
-    * content script
-    * count up badge number
-    * background
-
-## Project Structure
-
-* src/typescript: TypeScript source files
-* src/assets: static files
-* dist: Chrome Extension directory
-* dist/js: Generated JavaScript files
-
-## Setup
-
-```
-npm install
-```
-
-## Import as Visual Studio Code project
-
-...
-
-## Build
-
-```
-npm run build
-```
-
-## Build in watch mode
-
-### terminal
-
-```
-npm run watch
-```
-
-### Visual Studio Code
-
-Run watch mode.
-
-type `Ctrl + Shift + B`
-
-## Load extension to chrome
-
-Load `dist` directory
-
+- [x] Export issues in Group Board
+- [ ] Export issues in Project Board
+- [ ] Add a setting page to keep api token
+- [ ] Add a configuration tool to export issues to the format you want
