@@ -1,7 +1,6 @@
 import {Action} from "./Action";
 import {Gitlab} from "gitlab";
 import Issue from "../../model/issue";
-import {dtsTsTsxJsJsxRegex} from "ts-loader/dist/types/constants";
 
 export class MyJobsSrv implements Action {
     addEvent(document: Document) {
