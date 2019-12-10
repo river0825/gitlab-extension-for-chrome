@@ -1,35 +1,45 @@
 {
   "manifest_version": 2,
-
-  "name": "Chrome Extension TypeScript Starter",
-  "description": "Chrome Extension, TypeScript, Visual Studio Code",
+  "name": "Gitlab Chrome Extension ",
+  "description": "Gitlab Chrome Extension",
   "version": "1.0",
-
   "options_ui": {
     "page": "options.html",
     "chrome_style": true
   },
-
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
-
   "content_scripts": [
-      {
-          "matches": ["<all_urls>"],
-          "js": ["js/vendor.js", "js/content_script.js"]
-      }
+    {
+      "run_at": "document_end",
+      "matches": [
+        "<all_urls>",
+        "https://gitlab.pchomepay.com.tw/*/boards"
+      ],
+      "js": [
+        "js/vendor.js",
+        "js/content_script.js"
+      ]
+    }
   ],
-
+  "web_accessible_resources": [
+    "js/content_script.js",
+    "js/inject.js",
+    "inject.js"
+  ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-
   "background": {
-    "scripts": ["js/vendor.js", "js/background.js"]
+    "scripts": [
+      "js/vendor.js",
+      "js/background.js"
+    ]
   },
-
   "permissions": [
     "storage",
+    "activeTab",
+    "contextMenus",
     "<all_urls>"
   ]
 }

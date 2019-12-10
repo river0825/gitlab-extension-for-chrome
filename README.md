@@ -4,6 +4,12 @@ This project is base on [Chrome Extension TypeScript Starter](https://github.com
 
 Gitlab Chrome Extension, provide extra feature to export issues.
 
+## How to debug
+
+```
+$ npm run watch
+```
+
 ## Features
 
 - [x] Export issues in Group Board
