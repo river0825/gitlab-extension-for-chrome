@@ -36,7 +36,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         # An optional set of paths representing artifacts to upload to the release. This may be a single path or a comma delimited list of paths (or globs)
-        artifact: gitlab-extension   # optional, default is 
+        artifact: artifact/gitlab-extension.zip   # optional, default is 
         # An optional set of paths representing artifacts to upload to the release. This may be a single path or a comma delimited list of paths (or globs)
 #         artifacts: # optional, default is 
         # The content type of the artifact. Defaults to raw
