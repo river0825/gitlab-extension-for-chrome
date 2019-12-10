@@ -32,26 +32,16 @@ jobs:
       env:
         CI: true
 
-    - name: Create Release
-      uses: ncipollo/release-action@v1
+    - name: GH Release
+      uses: softprops/action-gh-release@v0.1.0
       with:
-        # An optional set of paths representing artifacts to upload to the release. This may be a single path or a comma delimited list of paths (or globs)
-        artifact: artifact/gitlab-extension.zip   # optional, default is 
-        # An optional set of paths representing artifacts to upload to the release. This may be a single path or a comma delimited list of paths (or globs)
-#         artifacts: # optional, default is 
-        # The content type of the artifact. Defaults to raw
-        artifactContentType: zip # optional, default is 
-        # An optional body for the release.
-#         body: # optional, default is 
-        # An optional body file for the release. This should be the path to the file
-#         bodyFile: # optional, default is 
-        # An optional commit reference. This will be used to create the tag if it does not exist.
-#         commit: # optional, default is 
-        # Optionally marks this release as a draft release. Set to true to enable.
-#         draft: # optional, default is 
-        # An optional name for the release. If this is omitted the tag will be used.
-#         name: # optional, default is 
-        # An optional tag for the release. If this is omitted the git ref will be used (if it is a tag).
-#         tag:  # optional, default is 
-        # The Github token.
-#         token: # default is 
+        # Note-worthy description of changes in release
+#         body: # optional, default is empty
+        # Path to load note-worthy description of changes in release from
+#         body-path: # optional, default is empty
+        # Gives the release a custom name
+#         name: # optional, default is Name of tag
+        # Creates a draft release
+#         draft: # optional, default is false
+        # Comma-delimited list of path globs for asset files to upload
+        files: artifact/gitlab-extension.zip # optional, default is empty
