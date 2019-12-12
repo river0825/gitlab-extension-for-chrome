@@ -38,6 +38,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        files:
-        - ./artifact/gitlab-extension.zip
-        - ./artifact/gitlab-extension.crx
+        files: |
+          ./artifact/gitlab-extension.zip
+          ./artifact/gitlab-extension.crx
