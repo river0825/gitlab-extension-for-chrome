@@ -10,6 +10,8 @@ import Papa = require('papaparse');
 export class ExportSrv implements Action {
     addEvent(document: Document) {
         let divAddList = document!.getElementById("js-add-list") as HTMLDivElement;
+        if(!divAddList) return;
+
         let divExp = document.createElement("div") as HTMLDivElement;
         let buttonExp = document.createElement("button", {}) as HTMLButtonElement;
         buttonExp.innerText = "Export";

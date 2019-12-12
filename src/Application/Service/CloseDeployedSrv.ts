@@ -9,6 +9,8 @@ import {camelizeKeys} from 'humps'
 export class CloseDeployedSrv implements Action{
     addEvent(document: Document) {
         let divAddList = document!.getElementById("js-add-list") as HTMLDivElement;
+        if(!divAddList) return;
+
         let divExp = document.createElement("div") as HTMLDivElement;
         let buttonToAdd = document.createElement("button", {}) as HTMLButtonElement;
         buttonToAdd.innerText = "Close";

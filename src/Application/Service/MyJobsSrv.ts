@@ -1,10 +1,13 @@
 import {Action} from "./Action";
 import {Gitlab} from "gitlab";
 import Issue from "../../model/issue";
+import tingle = require('tingle.js');
 
 export class MyJobsSrv implements Action {
     addEvent(document: Document) {
         let divAddList = document!.getElementById("js-add-list") as HTMLDivElement;
+        if(!divAddList) return;
+
         let divExp = document.createElement("div") as HTMLDivElement;
         let buttonExp = document.createElement("button", {}) as HTMLButtonElement;
         buttonExp.innerText = "MyJobs";
@@ -25,7 +28,11 @@ export class MyJobsSrv implements Action {
         });
 
         try {
-            await MyJobsSrv.showMyJobs(gitlab);
+            const issues = await MyJobsSrv.showMyJobs(gitlab);
+            const message = await MyJobsSrv.transformJobs(issues);
+
+            console.log(message);
+
             (e.target as HTMLButtonElement).disabled = false;
         } catch (err) {
             console.error(err);
@@ -34,14 +41,8 @@ export class MyJobsSrv implements Action {
     }
 
 
-    protected static async showMyJobs(gitlab: Gitlab): Promise<Issue[]> {
-        return new Promise<Issue[]>(async (resolve, reject) => {
-            let gissues = await gitlab.Issues.all({
-                state: 'opened',
-                assignee_id: window.gon.current_user_id,
-                perPage: 100
-            }) as Issue[]
-
+    protected static async transformJobs(gissues: Issue[]): Promise<string>{
+        return new Promise<string>(((resolve, reject) => {
             const inProgressLabels = ['flow/Sprint Backlog', 'flow/開發中']
             const inDoneLabels = ['flow/開發完成', 'flow/測試中', 'flow/DONE']
             const status = {InProgress: "I", Done: "D"};
@@ -63,21 +64,33 @@ export class MyJobsSrv implements Action {
                 return a.state > b.state ? 0 : 1;
             });
 
-            console.log("---- in progress ----");
-
+            let msg = "---- in progress ----";
             tranformedIssues.filter((value => {
                 return value.state === status.InProgress
             })).forEach((value, index, array) => {
-                console.log(value.title + " ==> " + value.flow)
+                msg += value.title + " ==> " + value.flow
             });
 
             console.log("---- DONE ----");
-
             tranformedIssues.filter((value => {
                 return value.state === status.Done
             })).forEach((value, index, array) => {
-                console.log(value.title + " ==> " + value.flow)
+                msg += value.title + " ==> " + value.flow
             });
+
+            resolve(msg);
+
+        }))
+    }
+
+    protected static async showMyJobs(gitlab: Gitlab): Promise<Issue[]> {
+        return new Promise<Issue[]>(async (resolve, reject) => {
+            let gissues = await gitlab.Issues.all({
+                state: 'opened',
+                assignee_id: window.gon.current_user_id,
+                perPage: 100
+            }) as Issue[]
+
 
             resolve(gissues);
         })

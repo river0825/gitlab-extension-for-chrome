@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Gitlab Chrome Extension ",
   "description": "Gitlab Chrome Extension",
-  "version": "1.0",
+  "version": "1.0.1",
   "options_ui": {
     "page": "options.html",
     "chrome_style": true
@@ -15,8 +15,7 @@
     {
       "run_at": "document_end",
       "matches": [
-        "<all_urls>",
-        "https://gitlab.pchomepay.com.tw/*/boards"
+        "<all_urls>"
       ],
       "js": [
         "js/vendor.js",
