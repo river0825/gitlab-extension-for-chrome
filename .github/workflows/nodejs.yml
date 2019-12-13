@@ -28,7 +28,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: gitlab-extension
-        path: ./artifact/gitlab-extension.zip   
+        path: ./artifact/gitlab-extension-${GITHUB_REF##*/}.zip
     
 #npm test
       env:
@@ -41,5 +41,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: |
-          ./artifact/gitlab-extension.zip
-          ./artifact/gitlab-extension.crx
+          ./artifact/gitlab-extension-${GITHUB_REF##*/}.zip
+          ./artifact/gitlab-extension-${GITHUB_REF##*/}.crx
