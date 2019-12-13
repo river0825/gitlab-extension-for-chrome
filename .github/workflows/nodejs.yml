@@ -19,7 +19,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
       run: |
-        export
         npm ci
         npm run build --if-present
         npm run pack
@@ -28,7 +27,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: gitlab-extension
-        path: ./artifact/gitlab-extension-${GITHUB_REF##*/}.zip
+        path: ./artifact/gitlab-extension.zip
     
 #npm test
       env:
@@ -41,5 +40,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: |
-          ./artifact/gitlab-extension-${GITHUB_REF##*/}.zip
-          ./artifact/gitlab-extension-${GITHUB_REF##*/}.crx
+          ./artifact/gitlab-extension.zip
+          ./artifact/gitlab-extension.crx
