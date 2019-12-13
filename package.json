@@ -16,6 +16,7 @@
     "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
   },
   "dependencies": {
+    "@types/tingle.js": "^0.13.0",
     "bootbox": "^5.3.4",
     "gitlab": "^11.1.2",
     "humps": "^2.0.1",

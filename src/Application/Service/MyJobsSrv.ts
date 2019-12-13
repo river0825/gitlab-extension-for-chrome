@@ -1,7 +1,7 @@
 import {Action} from "./Action";
 import {Gitlab} from "gitlab";
 import Issue from "../../model/issue";
-import tingle = require('tingle.js');
+import {modal as Modal} from 'tingle.js';
 
 export class MyJobsSrv implements Action {
     addEvent(document: Document) {
@@ -32,6 +32,12 @@ export class MyJobsSrv implements Action {
             const message = await MyJobsSrv.transformJobs(issues);
 
             console.log(message);
+
+            let modal = new Modal();
+            modal.setContent(message);
+            modal.open();
+
+
 
             (e.target as HTMLButtonElement).disabled = false;
         } catch (err) {
@@ -64,19 +70,21 @@ export class MyJobsSrv implements Action {
                 return a.state > b.state ? 0 : 1;
             });
 
-            let msg = "---- in progress ----";
+            let msg = "<h3>in progress</h3><dl>";
             tranformedIssues.filter((value => {
                 return value.state === status.InProgress
             })).forEach((value, index, array) => {
-                msg += value.title + " ==> " + value.flow
+                msg += `<dd>${value.title}  ==> ${value.flow}</dd>`
             });
 
+            msg += "</dl><h3>DONE</h3><dl>";
             console.log("---- DONE ----");
             tranformedIssues.filter((value => {
                 return value.state === status.Done
             })).forEach((value, index, array) => {
-                msg += value.title + " ==> " + value.flow
+                msg += `<dd>${value.title}  ==> ${value.flow}</dd>`
             });
+            msg += "</dl>";
 
             resolve(msg);
 
