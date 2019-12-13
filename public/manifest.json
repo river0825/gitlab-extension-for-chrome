@@ -19,11 +19,10 @@
       ],
       "js": [
         "js/vendor.js",
-        "js/content_script.js",
-        "tingle.js"
+        "js/content_script.js"
       ],
       "css": [
-        "tingle.css"
+        "material-modal.css"
       ]
     }
   ],
