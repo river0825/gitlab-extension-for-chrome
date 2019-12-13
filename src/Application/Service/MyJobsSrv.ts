@@ -31,7 +31,7 @@ export class MyJobsSrv implements Action {
             const issues = await MyJobsSrv.showMyJobs(gitlab);
             const message = await MyJobsSrv.transformJobs(issues);
 
-            MaterialAlert.materialAlert("title", message, () => {});
+            MaterialAlert.materialAlert("我的工作項", message, () => {});
 
             (e.target as HTMLButtonElement).disabled = false;
         } catch (err) {
@@ -49,12 +49,25 @@ export class MyJobsSrv implements Action {
             const status = {InProgress: "I", Done: "D"};
 
             let tranformedIssues = gissues.filter((issue: Issue) => {
+                //檢查有沒有在 ignore 列表中
                 let toIgnore = issue.labels.some((value:string): boolean => {
                     return inIgnoreLabels.indexOf(value) > -1;
                 });
 
+                //check if there is a label start with flow
+                if(!toIgnore) {
+                    let hasStartWithFLOW = issue.labels.some((value:string): boolean => {
+                        return value.indexOf('flow') === 0;
+                    });
+
+                    if(!hasStartWithFLOW){
+                        toIgnore = true;
+                    }
+                }
+
                 return !toIgnore;
             }).map((issue: Issue) => {
+                //找出目前的 state
                 let flow = issue.labels.reduce((previousValue: string, currentValue: any): string => {
                         if (previousValue && previousValue.indexOf("flow") > -1) return previousValue;
                         if (currentValue.indexOf("flow") > -1) return currentValue;

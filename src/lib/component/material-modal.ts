@@ -8,11 +8,13 @@ export class MaterialAlert {
     private static materialModalButtons: HTMLDivElement;
     private static materialModalButtonOK: HTMLDivElement;
     private static materialModalButtonCANCEL: HTMLDivElement;
+    private static materialModalTitleText: HTMLDivElement;
+    private static materialModalTitleClose: HTMLDivElement;
 
 
     static materialAlert(title: string, text: string, callback) {
         MaterialAlert.buildUp();
-        MaterialAlert.materialModalTitle.innerHTML = title;
+        MaterialAlert.materialModalTitleText.innerHTML = title;
         MaterialAlert.materialModalText.innerHTML = text;
         MaterialAlert.materialModalButtonCANCEL.style.display = 'none';
         MaterialAlert.materialModal.className = 'materialModal show';
@@ -44,8 +46,17 @@ export class MaterialAlert {
         MaterialAlert.materialModalContent = document.createElement('div');
         MaterialAlert.materialModalContent.classList.add('materialModalContent');
         MaterialAlert.materialModalContent.setAttribute('click', 'event.stopPropagation();');
+
         MaterialAlert.materialModalTitle = document.createElement('div');
         MaterialAlert.materialModalTitle.classList.add('materialModalTitle');
+        MaterialAlert.materialModalTitleText = document.createElement('div');
+        MaterialAlert.materialModalTitleClose = document.createElement('div');
+        MaterialAlert.materialModalTitleClose.classList.add('materialModalTextClose');
+        MaterialAlert.materialModalTitleClose.innerHTML = "X";
+        MaterialAlert.materialModalTitleClose.addEventListener('click', MaterialAlert.closeMaterialAlert);
+        MaterialAlert.materialModalTitle.appendChild(MaterialAlert.materialModalTitleText);
+        MaterialAlert.materialModalTitle.appendChild(MaterialAlert.materialModalTitleClose);
+
         MaterialAlert.materialModalText = document.createElement('div');
         MaterialAlert.materialModalText.classList.add('materialModalText');
         MaterialAlert.materialModalButtons = document.createElement('div');
