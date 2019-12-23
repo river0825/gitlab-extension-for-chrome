@@ -7,5 +7,6 @@ export class MREnlarge implements Action {
 
         (el[0] as HTMLLinkElement).style.fontSize = "20px";
         (el[0] as HTMLLinkElement).style.color = "red";
+        (el[0] as HTMLLinkElement).style.lineHeight= "22px";
     }
 }
