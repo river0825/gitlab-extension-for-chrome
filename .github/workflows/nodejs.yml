@@ -29,8 +29,6 @@ jobs:
       with:
         name: gitlab-extension
         path: ./artifact/gitlab-extension.zip   
-    
-#npm test
       env:
         CI: true
 
