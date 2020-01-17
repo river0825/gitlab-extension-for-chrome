@@ -63,7 +63,7 @@ export class ExportSrv implements Action {
         });
 
         // let obj: any;
-        let obj = {
+        let obj: ExportResult = {
             createDate: gissue.createdAt,
             assignees: gissue.assignees.length != 0 ? gissue.assignees[0].username : "",
             dueDate: gissue.dueDate,
@@ -77,7 +77,7 @@ export class ExportSrv implements Action {
         }
 
         //把 label 展開成為欄位
-        let result = gissue.labels.reduce((accumulator, currentValue) => {
+        return gissue.labels.reduce((accumulator, currentValue) => {
             let match = regex.exec(currentValue)
             if (match) {
                 accumulator[match[1]] = match[2];
@@ -85,7 +85,6 @@ export class ExportSrv implements Action {
             return accumulator;
         }, obj)
 
-        return result;
     }
 
 
@@ -129,15 +128,17 @@ export class ExportSrv implements Action {
                     break;
                 }
 
-                let a = await Promise.all(issuesInList.map(async (issues) => {
-                    let j = await ExportSrv.genReportObject(gitlab, group, issues);
-                    return j;
+                let boardJobs = await Promise.all<ExportResult>(
+                    issuesInList.map<ExportResult>(
+                        // @ts-ignore
+                        async (issues: Issue, index: number, arrIssue: Issue[] ): Promise<ExportResult> => {
+                            return await ExportSrv.genReportObject(gitlab, group, issues);
                 }));
 
-                console.log(`Report Obj got(${list.label.name}),  page : ${page}], isuess, ${a.length}`)
+                console.log(`Report Obj got(${list.label.name}),  page : ${page}], isuess, ${boardJobs.length}`)
 
-                if (a.length !== 0) {
-                    report = report.concat(a);
+                if (boardJobs.length !== 0) {
+                    report = report.concat(boardJobs);
                 }
 
                 page++;
@@ -149,19 +150,34 @@ export class ExportSrv implements Action {
         (e.target as HTMLButtonElement).disabled = false;
 
 
-        function downloadCsv(obj) {
-            let csv = Papa.unparse(obj);
+        function downloadCsv(obj: Array<ExportResult>) {
+            // let csv = Papa.unparse(obj);
+            let csv = transformToCSV(obj);
+            console.log(csv);
             let a = document.createElement('a');
-            a.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
             a.target = '_blank';
             a.download = moment().format('YYYYMMDD') + '.csv';
             document.body.appendChild(a);
             a.click();
         }
 
+        function transformToCSV(report: Array<ExportResult>): string{
+            let fields = ['createDate','assignees','dueDate','milestone','title','author','type','flow','sprint','category'];
+            let csvResult = fields.join(",") + "\n";
+
+            let lines = report.map<String>((issue: ExportResult, index: number, arr: ExportResult[]): String => {
+                let val = [];
+                fields.forEach((fieldName:string, index:number, arrField: string[]) :  void => {
+                    val.push(issue[fieldName])
+                });
+                return val.join(",")
+            });
+
+            return csvResult + lines.join("\n");
+        }
+
         downloadCsv(report)
 
-        console.log(report);
     }
-
 }
