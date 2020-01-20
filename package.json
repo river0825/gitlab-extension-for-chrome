@@ -16,9 +16,11 @@
     "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
   },
   "dependencies": {
+    "export-to-csv": "^0.2.1",
     "gitlab": "^11.1.2",
     "humps": "^2.0.1",
     "jquery": "^3.4.1",
+    "json2csv": "^4.5.4",
     "moment": "~2.24.0",
     "papaparse": "^5.1.0",
     "serialize-javascript": ">=2.1.1"
