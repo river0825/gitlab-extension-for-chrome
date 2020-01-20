@@ -12,6 +12,8 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
 import {Action} from "./Application/Service/Action";
 import {MyJobsSrv} from "./Application/Service/MyJobsSrv";
 import {MREnlarge} from "./Application/Service/MREnlarge";
+import {ExportPointSrv} from "./Application/Service/ExportPointSrv";
+
 // import {CloseDeployedSrv} from "./Application/Service/CloseDeployedSrv";
 
 export class BoardExport {
@@ -20,6 +22,7 @@ export class BoardExport {
             new ExportSrv(),
             new MyJobsSrv(),
             new MREnlarge(),
+            new ExportPointSrv(),
             // new CloseDeployedSrv()
         ]
 

@@ -27,7 +27,7 @@ export class MaterialAlert {
         MaterialAlert.materialModalButtonCANCEL.style.display = 'block';
     }
 
-    protected static closeMaterialAlert(event: Event) {
+    static closeMaterialAlert(event: Event) {
         event.stopPropagation()
         MaterialAlert.materialModal.className = 'materialModal hide';
         MaterialAlert.materialCallback();
